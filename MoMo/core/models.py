@@ -6,6 +6,7 @@ class PaymentServiceProvider(models.Model):
 
 class SaasInstance(models.Model):
     fullname = models.CharField(max_length=100)
+    hostname = models.CharField(max_length=50)
     address = models.GenericIPAddressField(protocol='both')
 
 class Payment(models.Model):
