@@ -5,7 +5,7 @@ from datetime import datetime
 
 # PaymentServiceProvider currently contains only the id and fullname of the PSP
 class PaymentServiceProvider(models.Model):
-    fullname = models.CharField(max_length=100)
+    fullname = models.CharField(max_length=100, unique=True)
 
 # PspAdapter contains the id, the PSP it is used for and the port on
 # which it is currently listening for incoming payment data.
@@ -13,6 +13,9 @@ class PspAdapter(models.Model):
     psp = models.ForeignKey(PaymentServiceProvider, on_delete=models.PROTECT)
     port = models.IntegerField(null=True)
     activated = models.BooleanField(default=False)
+
+    class Meta:
+        unique_together = ('psp', 'port')
 
 # SaasInstance contains id (account_id), fullname and the url used to send 
 # payment data or retrieve information (e.g. for routing purposes) 
