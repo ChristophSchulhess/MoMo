@@ -1,7 +1,7 @@
 # MoMo 
 ## Payment Processing App
 
-[!https://img.shields.io/badge/pylint-9.21-green.svg]
+![pylint: 9.21](https://img.shields.io/badge/pylint-9.21-green.svg)
 
 ### Motivation
 This project was created as a practical Python challenge for a job application.
