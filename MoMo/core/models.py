@@ -23,6 +23,9 @@ class SaasInstance(models.Model):
     fullname = models.CharField(max_length=100)
     url = models.URLField(default='')
 
+    class Meta:
+        unique_together = ('fullname', 'url')
+
 # Payment contains id, reference_id (identifying individual customer, currently
 # arbitrary), the time the data was received (by this core API), a reference to
 # a SaasInstance and a reference to a PaymentServiceProvider
