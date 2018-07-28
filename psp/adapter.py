@@ -7,5 +7,3 @@ class PspAdapter:
         self.core_url
 
     def register(**kwargs):
-
-
