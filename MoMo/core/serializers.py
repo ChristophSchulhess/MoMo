@@ -33,7 +33,8 @@ class PspAdapterSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'psp',
-            'port'
+            'port',
+            'activated'
         )
 
     def create(self, data):

@@ -15,6 +15,7 @@ class PaymentServiceProvider(models.Model):
 class PspAdapter(models.Model):
     psp = models.ForeignKey(PaymentServiceProvider, on_delete=models.PROTECT)
     port = models.IntegerField(null=True)
+    activated = models.BooleanField(default=False)
 
 # SaasInstance contains id (account_id), fullname and the url used to send 
 # payment data or retrieve information (e.g. for routing purposes) 
