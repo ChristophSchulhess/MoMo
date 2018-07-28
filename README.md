@@ -1,5 +1,4 @@
 # MoMo 
-## Payment Processing App
 
 ![pylint: 9.21](https://img.shields.io/badge/pylint-9.21-green.svg)
 
