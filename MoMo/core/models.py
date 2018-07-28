@@ -8,10 +8,7 @@ class PaymentServiceProvider(models.Model):
     fullname = models.CharField(max_length=100)
 
 # PspAdapter contains the id, the PSP it is used for and the port on
-# which it is currently listening for incoming payment data. Note that this
-# model refers to active adapters (not all adapters known). This structure may
-# change in order to provide more transparency as well as consistent port 
-# numbers for the adapters
+# which it is currently listening for incoming payment data.
 class PspAdapter(models.Model):
     psp = models.ForeignKey(PaymentServiceProvider, on_delete=models.PROTECT)
     port = models.IntegerField(null=True)
