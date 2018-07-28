@@ -5,9 +5,9 @@
 ## Motivation
 This project was created as a practical Python challenge for a job application.
 
-### Problem Definition
+## Description
 
-*Note: The problem definition has been (non-exhaustively) rewritten in my own words. Misconceptions or -interpretations are entirely possible, if not likely.*
+*Note: The challenge description has been (non-exhaustively) rewritten in my own words. Misconceptions or -interpretations are entirely possible, if not likely.*
 
 Implement a payment processing app that 
 
