@@ -3,3 +3,4 @@ include/
 lib/
 pip-selfcheck.json
 MoMo/db.sqlite3
+share/
