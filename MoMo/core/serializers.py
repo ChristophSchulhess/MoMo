@@ -2,24 +2,24 @@
 
 from rest_framework import serializers
 from core.models import (
-    Payment, 
-    PspAdapter, 
-    PaymentServiceProvider, 
+    Payment,
+    PspAdapter,
+    PaymentServiceProvider,
     SaasInstance
 )
 
 # Serializer for model Payment
 class PaymentSerializer(serializers.ModelSerializer):
-    # At the moment, we do not want to hide specific fields, 
+    # At the moment, we do not want to hide specific fields,
     # so we include all of them
     class Meta:
         model = Payment
         fields = (
-            'id', 
-            'reference_id', 
-            'amount', 
-            'date_received', 
-            'account_id', 
+            'id',
+            'reference_id',
+            'amount',
+            'date_received',
+            'account_id',
             'psp'
         )
 

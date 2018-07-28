@@ -17,8 +17,8 @@ class PspAdapter(models.Model):
     class Meta:
         unique_together = ('psp', 'port')
 
-# SaasInstance contains id (account_id), fullname and the url used to send 
-# payment data or retrieve information (e.g. for routing purposes) 
+# SaasInstance contains id (account_id), fullname and the url used to send
+# payment data or retrieve information (e.g. for routing purposes)
 class SaasInstance(models.Model):
     fullname = models.CharField(max_length=100)
     url = models.URLField(default='')

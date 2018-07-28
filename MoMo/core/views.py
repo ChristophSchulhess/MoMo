@@ -1,18 +1,18 @@
-''' 
-Create class-based API views. Generic views contained from rest_framework make 
-our life much easier (extended request-object, flexible formats, less code 
+'''
+Create class-based API views. Generic views contained from rest_framework make
+our life much easier (extended request-object, flexible formats, less code
 duplication, verbose status codes, etc.).
-Wired views up by connecting path to function APIView.as_view() in urls.py 
+Wired views up by connecting path to function APIView.as_view() in urls.py
 '''
 
 from core.models import (
-    Payment, 
-    PspAdapter, 
-    PaymentServiceProvider, 
+    Payment,
+    PspAdapter,
+    PaymentServiceProvider,
     SaasInstance
 )
 from core.serializers import (
-    PaymentSerializer, 
+    PaymentSerializer,
     PspAdapterSerializer,
     PspSerializer,
     SaasInstanceSerializer
@@ -27,7 +27,7 @@ import core.hooks as hooks
 class PaymentList(generics.ListCreateAPIView):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
-    
+
     # Perform_create() functions provide a hook for custom behaviour (e.g.
     # routing the received payment data to the respective SaasInstance)
     def perform_create(self, serializer):
