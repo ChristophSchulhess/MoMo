@@ -46,7 +46,7 @@ class PspAdapterList(generics.ListCreateAPIView):
         serializer.save()
 
 # Methods GET (byId) and DELETE for model PspAdapter
-class PspAdapterAtomic(generics.RetrieveDestroyAPIView):
+class PspAdapterAtomic(generics.RetrieveUpdateDestroyAPIView):
     queryset = PspAdapter.objects.all()
     serializer_class = PspAdapterSerializer
 
