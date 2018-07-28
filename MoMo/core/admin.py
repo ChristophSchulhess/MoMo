@@ -1,3 +1,7 @@
+'''
+Configure admin app
+'''
+
 from django.contrib import admin
 
 from .models import Payment, SaasInstance, PaymentServiceProvider, PspAdapter

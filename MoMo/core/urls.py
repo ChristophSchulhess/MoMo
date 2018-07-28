@@ -1,4 +1,6 @@
-'''  Wire up paths with (API)views '''
+'''
+Wire up paths with (API)views
+'''
 
 from django.urls import path
 from core import views
@@ -17,8 +19,8 @@ urlpatterns = [
 
     # Atomic methods
     path('{}<int:id>'.format(PSP_ADAPTER_PATH),
-        views.PspAdapterAtomic.as_view()),
+         views.PspAdapterAtomic.as_view()),
     path('{}<int:id>'.format(PSP_PATH), views.PspAtomic.as_view()),
     path('{}<int:id>'.format(SAAS_INSTANCE_PATH),
-        views.SaasInstanceAtomic.as_view())
+         views.SaasInstanceAtomic.as_view())
 ]
