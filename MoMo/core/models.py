@@ -4,10 +4,13 @@ from datetime import datetime
 class PaymentServiceProvider(models.Model):
     fullname = models.CharField(max_length=100)
 
+class PspAdapter(models.Model):
+    psp = models.ForeignKey(PaymentServiceProvider, on_delete=models.PROTECT)
+    port = models.IntegerField(null=True)
+
 class SaasInstance(models.Model):
     fullname = models.CharField(max_length=100)
-    hostname = models.CharField(max_length=50, default='')
-    address = models.GenericIPAddressField(protocol='both', null=True)
+    url = models.URLField(default='')
 
 class Payment(models.Model):
     reference_id = models.CharField(max_length=50)

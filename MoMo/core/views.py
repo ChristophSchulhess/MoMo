@@ -1,21 +1,53 @@
-from django.http import HttpResponse, JsonResponse
-from rest_framework.parsers import JSONParser
-from core.models import Payment
-from core.serializers import PaymentSerializer
+from core.models import (
+    Payment, 
+    PspAdapter, 
+    PaymentServiceProvider, 
+    SaasInstance
+)
+from core.serializers import (
+    PaymentSerializer, 
+    PspAdapterSerializer,
+    PspSerializer,
+    SaasInstanceSerializer
+)
+
+from rest_framework import generics
+import core.hooks as hooks
 
 # Create your views here.
 
-def payment_request(request):
-    if request.method == 'GET':
-        payments = Payment.objects.all()
-        serializer = PaymentSerializer(payments, many=True)
-        return JsonResponse(serializer.data, safe=False)
+class PaymentList(generics.ListCreateAPIView):
+    queryset = Payment.objects.all()
+    serializer_class = PaymentSerializer
+    
+    def perform_create(self, serializer):
+        # TODO: Route to SaasInstance
+        serializer.save()
 
-    elif request.method == 'POST':
-        data = JSONParser().parse(request)
-        serializer = PaymentSerializer(data=data)
-        if serializer.is_valid():
-            # TODO: Route to SaaS instance
-            serializer.save()
-            return JsonResponse(serializer.data, status=201)
-        return JsonResponse(serializer.errors, status=400)
+class PspAdapterList(generics.ListCreateAPIView):
+    queryset = PspAdapter.objects.all()
+    serializer_class = PspAdapterSerializer
+
+    def perform_create(self, serializer):
+        serializer.validated_data = hooks.port_select(serializer.validated_data)
+        serializer.save()
+
+class PspAdapterAtomic(generics.RetrieveDestroyAPIView):
+    queryset = PspAdapter.objects.all()
+    serializer_class = PspAdapterSerializer
+
+class PspList(generics.ListCreateAPIView):
+    queryset = PaymentServiceProvider.objects.all()
+    serializer_class = PspSerializer
+
+class PspAtomic(generics.RetrieveDestroyAPIView):
+    queryset = PaymentServiceProvider.objects.all()
+    serializer_class = PspSerializer
+
+class SaasInstanceList(generics.ListCreateAPIView):
+    queryset = SaasInstance.objects.all()
+    serializer_class = SaasInstanceSerializer
+
+class SaasInstanceAtomic(generics.RetrieveDestroyAPIView):
+    queryset = SaasInstance.objects.all()
+    serializer_class = SaasInstanceSerializer
