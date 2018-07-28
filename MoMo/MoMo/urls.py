@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
+    # Testing
     path('admin/', admin.site.urls),
+    # We only require urls from our single app 'core'
     path('', include('core.urls')),
 ]
