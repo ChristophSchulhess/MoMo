@@ -2,10 +2,10 @@
 
 ![pylint: 9.21](https://img.shields.io/badge/pylint-9.21-green.svg)
 
-### Motivation
+## Motivation
 This project was created as a practical Python challenge for a job application.
 
-#### Problem Definition
+### Problem Definition
 
 *Note: The problem definition has been (non-exhaustively) rewritten in my own words. Misconceptions or -interpretations are entirely possible, if not likely.*
 
@@ -16,3 +16,7 @@ Implement a payment processing app that
 3. *'routes'* the standardized payment data to its destination. This destination is a **SaaS instance** (run in a seperate container) of software used for managing products and customers in the renewable energy sector. An instance that receives payment data in the standardized form will be able to process it and provide electricity according to the corresponding value. The application should be able to route payments by account_id **and** reference_id.
 
 The focus should lie on the **simplicity** and **extendability** of the design, specifically with regard to the implementation of new PSP adapters and routing mechanisms.
+
+## Tech Stack
+
+The core app is written as a [Django](https://www.djangoproject.com/) app and uses the [Django REST framework](http://www.django-rest-framework.org/).
