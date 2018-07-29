@@ -1,0 +1,72 @@
+[
+{
+    "model": "core.paymentserviceprovider",
+    "pk": 3,
+    "fields": {
+        "fullname": "Gringotts Wizarding Bank"
+    }
+},
+{
+    "model": "core.paymentserviceprovider",
+    "pk": 4,
+    "fields": {
+        "fullname": "Iron Bank of Bravos"
+    }
+},
+{
+    "model": "core.pspadapter",
+    "pk": 1,
+    "fields": {
+        "psp": 3,
+        "port": 8070,
+        "up": false
+    }
+},
+{
+    "model": "core.pspadapter",
+    "pk": 2,
+    "fields": {
+        "psp": 4,
+        "port": 7999,
+        "up": false
+    }
+},
+{
+    "model": "core.saasinstance",
+    "pk": 2,
+    "fields": {
+        "fullname": "Thomas Edison",
+        "url": "http://127.0.0.1:8042"
+    }
+},
+{
+    "model": "core.saasinstance",
+    "pk": 3,
+    "fields": {
+        "fullname": "Nicola Tesla",
+        "url": "http://127.0.0.1:8043"
+    }
+},
+{
+    "model": "core.payment",
+    "pk": 1,
+    "fields": {
+        "reference_id": "someid",
+        "amount": 42.0,
+        "date_received": "2018-07-29T21:04:35Z",
+        "account_id": 2,
+        "psp": 3
+    }
+},
+{
+    "model": "core.payment",
+    "pk": 2,
+    "fields": {
+        "reference_id": "someotherid",
+        "amount": 23.0,
+        "date_received": "2018-07-29T21:04:51Z",
+        "account_id": 3,
+        "psp": 4
+    }
+}
+]
