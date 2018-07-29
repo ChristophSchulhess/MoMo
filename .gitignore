@@ -4,3 +4,6 @@ lib/
 pip-selfcheck.json
 MoMo/db.sqlite3
 share/
+MoMo/core/migrations/
+MoMo/core/__pycache__/
+MoMo/MoMo/__pycache__/
