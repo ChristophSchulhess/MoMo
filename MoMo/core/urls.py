@@ -2,25 +2,29 @@
 Wire up paths with (API)views
 '''
 
-from django.urls import path
+from django.conf.urls import url
+from rest_framework.urlpatterns import format_suffix_patterns
 from core import views
 
-PAYMENT_PATH = 'payment/'
-PSP_PATH = 'payment_service_provider/'
-PSP_ADAPTER_PATH = 'psp_adapter/'
-SAAS_INSTANCE_PATH = 'saas_instance/'
+PATHS = {
+    'Payment': 'payment/',
+    'PaymentServiceProvider': 'payment_service_provider/',
+    'PspAdapter': 'psp_adapter/',
+    'SaasInstance': 'saas_instance/'
+}
 
 urlpatterns = [
     # Methods GET (list) and POST
-    path(PAYMENT_PATH, views.PaymentList.as_view()),
-    path(PSP_ADAPTER_PATH, views.PspAdapterList.as_view()),
-    path(PSP_PATH, views.PspList.as_view()),
-    path(SAAS_INSTANCE_PATH, views.SaasInstanceList.as_view()),
+    url(r'^payment/$', views.PaymentList.as_view()),
+    url(r'^psp_adapter/$', views.PspAdapterList.as_view()),
+    url(r'^payment_service_provider/$', views.PspList.as_view()),
+    url(r'^saas_instance/$', views.SaasInstanceList.as_view()),
 
     # Atomic methods
-    path('{}<int:id>'.format(PSP_ADAPTER_PATH),
-         views.PspAdapterAtomic.as_view()),
-    path('{}<int:id>'.format(PSP_PATH), views.PspAtomic.as_view()),
-    path('{}<int:id>'.format(SAAS_INSTANCE_PATH),
-         views.SaasInstanceAtomic.as_view())
+    url(r'^psp_adapter/(?P<pk>[0-9]+)/$', views.PspAdapterAtomic.as_view()),
+    url(r'^payment_service_provider/(?P<pk>[0-9]+)/$',
+        views.PspAtomic.as_view()),
+    url(r'^saas_instance/(?P<pk>[0-9]+)/$', views.SaasInstanceAtomic.as_view())
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
