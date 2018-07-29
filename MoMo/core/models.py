@@ -1,7 +1,7 @@
 '''
 Create models
 '''
-from datetime import datetime
+from django.utils import timezone
 from django.db import models
 
 class PaymentServiceProvider(models.Model):
@@ -18,10 +18,8 @@ class PspAdapter(models.Model):
     '''
     psp = models.ForeignKey(PaymentServiceProvider, on_delete=models.PROTECT)
     port = models.IntegerField(null=True)
-    activated = models.BooleanField(default=False)
-
-    class Meta:
-        unique_together = ('psp', 'port')
+    local = models.BooleanField(default=True)
+    up = models.BooleanField(default=False)
 
 class SaasInstance(models.Model):
     '''
@@ -29,10 +27,7 @@ class SaasInstance(models.Model):
     payment data or retrieve information (e.g. for routing purposes)
     '''
     fullname = models.CharField(max_length=100)
-    url = models.URLField(default='')
-
-    class Meta:
-        unique_together = ('fullname', 'url')
+    url = models.URLField(default='', unique=True)
 
 class Payment(models.Model):
     '''
@@ -41,7 +36,7 @@ class Payment(models.Model):
     reference to a SaasInstance and a reference to a PaymentServiceProvider
     '''
     reference_id = models.CharField(max_length=50)
-    amount = models.IntegerField(default=0)
-    date_received = models.DateTimeField(default=datetime.now)
+    amount = models.FloatField(default=0)
+    date_received = models.DateTimeField(default=timezone.now)
     account_id = models.ForeignKey(SaasInstance, on_delete=models.PROTECT)
     psp = models.ForeignKey(PaymentServiceProvider, on_delete=models.PROTECT)
