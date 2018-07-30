@@ -5,6 +5,7 @@ duplication, verbose status codes, etc.).
 Wired views up by connecting path to function APIView.as_view() in urls.py
 '''
 from rest_framework import generics
+from core import hooks
 
 from core.models import (
     Payment,
@@ -29,10 +30,13 @@ class PaymentList(generics.ListCreateAPIView):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
 
-    # Perform_create() functions provide a hook for custom behaviour (e.g.
-    # routing the received payment data to the respective SaasInstance)
     def perform_create(self, serializer):
-        # TODO: Route to SaasInstance
+        '''
+        perform_create() functions provide a hook for custom behaviour (e.g.
+        routing the received payment data to the respective SaasInstance)
+        '''
+        error_state = hooks.route_by_account(serializer.validated_data)
+        # Do some error handling here, error_state == None means all good
         serializer.save()
 
 class PspAdapterList(generics.ListCreateAPIView):
@@ -56,7 +60,7 @@ class PspList(generics.ListCreateAPIView):
     queryset = PaymentServiceProvider.objects.all()
     serializer_class = PspSerializer
 
-class PspAtomic(generics.RetrieveDestroyAPIView):
+class PspAtomic(generics.RetrieveUpdateDestroyAPIView):
     '''
     Methods GET (byId) and DELETE for model PaymentServiceProvider
     '''
@@ -70,7 +74,7 @@ class SaasInstanceList(generics.ListCreateAPIView):
     queryset = SaasInstance.objects.all()
     serializer_class = SaasInstanceSerializer
 
-class SaasInstanceAtomic(generics.RetrieveDestroyAPIView):
+class SaasInstanceAtomic(generics.RetrieveUpdateDestroyAPIView):
     '''
     Methods GET (byId) and DELETE for model SaasInstance
     '''
