@@ -125,3 +125,20 @@ The *urls.py* file contains the wiring of API views to the django models. All mo
 When posting or updating, the payload data has to conform to the respective model mentioned above. The API accepts form data as well as JSON-encoded payloads.
 
 ## Installation
+
+*NOTE: This assumes that Python3.5+ and some virtual environment utility is installed.*
+
+1. Clone MoMo and instal dependencies 
+```bash
+    $ git clone https://github.com/ChristophSchulthess/momo.git /MoMo
+    $ cd MoMo
+    $ virtualenv venv && source venv/bin/activate
+    $ pip install django django-rest-framework requests
+```
+2. Initialize database (currently flat-file sqlite)
+```bash
+    $ cd MoMo
+    $ python manage.py migrate
+```
+
+Now you should be able to run the app on the development server with ```$ python manage.py runserver``` or ```$ python manage.py testserver core/fictures/core.json``` (uses fixture for testing).
