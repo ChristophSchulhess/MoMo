@@ -17,6 +17,10 @@ Implement a payment processing app that
 
 The focus should lie on the **simplicity** and **extendability** of the design, specifically with regard to the implementation of new PSP adapters and routing mechanisms.
 
+## Code Style
+
+The project code has been linted with [pylint](https://www.pylint.org/) with the [pylint-django plugin](https://github.com/PyCQA/pylint-django) (Benchmark for acceptable code is score >= 9).
+
 ## Tech Stack
 
 The core behaviour is implemented as a [Django](https://www.djangoproject.com/) app and uses the [Django REST framework](http://www.django-rest-framework.org/). It also uses [requests - http for humans](http://docs.python-requests.org/en/master/) for routing.
