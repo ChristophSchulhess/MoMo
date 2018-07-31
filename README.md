@@ -169,4 +169,12 @@ An adapter for a specific payment service provider can be written in any languag
 
 The project contains to test suites: *test_views.py* uses the REST framework's test client to send all kinds of HTTP request and then checks for the expected outcome, *test_routers.py* test the rounting functionality by mocking a live (or offline) SaaS instance and checking for expected error states (or the absence thereof).
 
-To test the app, change to the project-level directory (right above *core/*) and run ```python manage.py test -v 2 core/```.
+To test the app, change to the project-level directory (right above *core/*) and run ```$ python manage.py test -v 2 core/```.
+
+## Credits
+
+Most and foremost my brother who provided valuable input and fruitful discussions.
+
+## TODO
+
+A lot. However the logical next steps appear to be a Python module that simplifies adapter creation even further and methods of Authentication, Authorization, Integrity verification and so on.
