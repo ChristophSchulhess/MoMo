@@ -109,4 +109,17 @@ class PaymentList(generics.ListCreateAPIView):
 
         serializer.save()
 ```
- 
+
+## API Reference
+
+The *urls.py* file contains the wiring of API views to the django models. All models can be accessed by HTTP GET (list) and POST requests. The corresponding path is simply the snake-cased model name (i.e. Payment becomes '$DOMAIN/payment/' and SaasInstance becomes '$DOMAIN/saas_instance/'). The models PspAdapter, PaymentServiceProvider and SaasInstance also provide atomic views for creating, updating, deleting and fetching single elements by ID. Assuming the application is run on the localhost on port 8000, this results in the following valid API URLs:
+
+    http://127.0.0.1:8000/payment/
+    http://127.0.0.1:8000/payment_service_provider/
+    http://127.0.0.1:8000/payment_service_provider/[id]/
+    http://127.0.0.1:8000/psp_adapter/
+    http://127.0.0.1:8000/psp_adapter/[id]/
+    http://127.0.0.1:8000/saas_instance/
+    http://127.0.0.1:8000/saas_instance/[id]/
+    
+When posting or updating, the payload data has to conform to the respective model, mentioned above. The API accepts form data as well as JSON-encoded payloads.
