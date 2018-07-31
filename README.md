@@ -19,6 +19,8 @@ The focus should lie on the **simplicity** and **extendability** of the design, 
 
 ## Code Style
 
+[PEP8](https://www.python.org/dev/peps/pep-0008/)
+
 The project code has been linted with [pylint](https://www.pylint.org/) with the [pylint-django plugin](https://github.com/PyCQA/pylint-django) (Benchmark for acceptable code is score >= 9).
 
 ## Tech Stack
