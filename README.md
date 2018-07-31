@@ -135,10 +135,10 @@ When posting or updating, the payload data has to conform to the respective mode
     $ virtualenv venv && source venv/bin/activate
     $ pip install django django-rest-framework requests
 ```
-2. Initialize database (currently flat-file sqlite)
+2. Initialize database (currently SQLite)
 ```bash
     $ cd MoMo
     $ python manage.py migrate
 ```
 
-Now you should be able to run the app on the development server with ```$ python manage.py runserver``` or ```$ python manage.py testserver core/fictures/core.json``` (uses fixture for testing).
+Now you should be able to run the app on the development server with ```$ python manage.py runserver``` or ```$ python manage.py testserver core/fixtures/core.json``` (uses fixture for testing).
