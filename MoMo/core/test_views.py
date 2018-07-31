@@ -18,10 +18,10 @@ class PaymentTest(APITestCase):
         in the respective model. Similar for all models.
         '''
         data = {
-            'reference_id': 'someid',
-            'amount': 42,
-            'account_id': 3,
-            'psp': 3
+            'reference_id': 'mister_blue',
+            'amount': 42.0,
+            'account_id': 1,
+            'psp': 2
         }
         response = self.client.post('/payment/', data)
 
@@ -34,10 +34,11 @@ class PaymentTest(APITestCase):
         Test whether a GET call (non-atomic) retrieves the expected set of
         entries. Similar for all models.
         '''
+        fixtures_payment_count = 4
         response = self.client.get('/payment/')
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 2)
+        self.assertEqual(len(response.data), fixtures_payment_count)
 
 class PaymentServiceProviderTest(APITestCase):
     '''
@@ -46,7 +47,9 @@ class PaymentServiceProviderTest(APITestCase):
     fixtures = ['core']
 
     def test_psp_is_created(self):
-        # See PaymentTest
+        '''
+        See PaymentTest
+        '''
         data = {'fullname': 'Zeitsparkasse'}
         response = self.client.post('/payment_service_provider/', data)
 
@@ -63,11 +66,14 @@ class PaymentServiceProviderTest(APITestCase):
         response = self.client.post('/payment_service_provider/', data)
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(response.data['fullname'][0],
+        self.assertEqual(
+            response.data['fullname'][0],
             'payment service provider with this fullname already exists.')
 
     def test_psp_list_is_retrieved(self):
-        # See PaymentTest
+        '''
+        See PaymentTest
+        '''
         response = self.client.get('/payment_service_provider/')
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -78,7 +84,7 @@ class PaymentServiceProviderTest(APITestCase):
         Test whether a GET call (atomic) retrieves the expected entry. Similar
         for SaasInstance and PspAdapter
         '''
-        psp_id = 3
+        psp_id = 1
         response = self.client.get('/payment_service_provider/{}/'.format(
             psp_id))
 
@@ -91,17 +97,16 @@ class PaymentServiceProviderTest(APITestCase):
         on_delete=models.PROTECT raises a ProtectedError. Similar for
         SaasInstance
         '''
-        psp_id = 3
+        psp_id = 1
         with self.assertRaises(ProtectedError):
-            response = self.client.delete(
-                '/payment_service_provider/{}/'.format(psp_id))
+            self.client.delete('/payment_service_provider/{}/'.format(psp_id))
 
     def test_psp_is_deleted(self):
         '''
         Test whether an entry is deleted when no foreign keys depend on it.
         Similar for SaasInstance.
         '''
-        psp_id = 3
+        psp_id = 1
         # Delete refering entries in other models first
         models.Payment.objects.filter(psp=psp_id).delete()
         models.PspAdapter.objects.filter(psp=psp_id).delete()
