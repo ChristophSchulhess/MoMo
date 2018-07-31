@@ -14,7 +14,7 @@ class PaymentServiceProvider(models.Model):
 class PspAdapter(models.Model):
     '''
     PspAdapter contains the id, the PSP it is used for, the port on which it
-    is currently listening for incoming payment data and an activated flag.
+    is currently listening for incoming payment data and a state flag.
     '''
     psp = models.ForeignKey(PaymentServiceProvider, on_delete=models.PROTECT)
     port = models.IntegerField(null=True)
