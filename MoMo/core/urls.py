@@ -6,13 +6,6 @@ from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
 from core import views
 
-PATHS = {
-    'Payment': 'payment/',
-    'PaymentServiceProvider': 'payment_service_provider/',
-    'PspAdapter': 'psp_adapter/',
-    'SaasInstance': 'saas_instance/'
-}
-
 urlpatterns = [
     # Methods GET (list) and POST
     url(r'^payment/$', views.PaymentList.as_view()),
