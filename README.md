@@ -70,6 +70,7 @@ Each API call (de-)serializes data to and from the specified model. Currently, t
 
     ```python
     class PspAdapter(models.Model):
+        ...
         psp = models.ForeignKey(PaymentServiceProvider, on_delete=models.PROTECT)
         port = models.IntegerField(null=True)
         local = models.BooleanField(default=True)
@@ -82,19 +83,12 @@ Each time a payment data object is received by the core API and saved to its dat
 
     ```python
     class PaymentList(generics.ListCreateAPIView):
-        '''
-        Payment provides methods GET (list) and POST.
-        PUT and DELETE are not implemented seeing that this data is stored for
-        compliance reasons and should not be tampered with.
-        '''
+        ...
         queryset = Payment.objects.all()
         serializer_class = PaymentSerializer
 
         def perform_create(self, serializer):
-            '''
-            perform_create() functions provide a hook for custom behaviour (e.g.
-            routing the received payment data to the respective SaasInstance)
-            '''
+            ...
             AccountIdRouter().route(serializer.validated_data)
 
             # or
