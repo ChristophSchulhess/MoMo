@@ -175,6 +175,10 @@ To test the app, change to the project-level directory (right above *core/*) and
 
 Most and foremost my brother who provided valuable input and fruitful discussions.
 
-## TODO
+## TODOs
 
-A lot. However the logical next steps appear to be a Python module that simplifies adapter creation even further and methods of Authentication, Authorization, Integrity verification and so on.
+- Complete test suites
+- Add layers of authentication, authorization, integrity checking, etc.
+- Add logging functionality (the idea is to do logging in *views.py* by adding the respective function to the perform_create hook, similar to routing.
+- Build a module to simplify adapter creation.
+- Modify for deployment (change to other database, run with gunicorn, etc.)
