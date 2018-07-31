@@ -82,19 +82,11 @@ Each API call (de-)serializes data to and from the specified model. Currently, t
 Each time a payment data object is received by the core API and saved to its database, a router will redirect it to the destination instance. How this routing takes place depends on the respective router class to be instantiated. Currently two routers are available: **AccountIdRouter** and **ReferenceIdRouter**. However new routers can easily be added by adding subclasses to the *routers.py* file in the core/ directory. Routers are hooked in the *perform_create()* method of the Payment API view like so:
 
     ```python
-    class PaymentList(generics.ListCreateAPIView):
+    class PspAdapter(models.Model):
         ...
-        queryset = Payment.objects.all()
-        serializer_class = PaymentSerializer
-
-        def perform_create(self, serializer):
-            ...
-            AccountIdRouter().route(serializer.validated_data)
-
-            # or
-
-            # error_state = AccountIdRouter().route(serializer.validated_data)
-            # with some error handling here.
-
-            serializer.save()
+        psp = models.ForeignKey(PaymentServiceProvider, on_delete=models.PROTECT)
+        port = models.IntegerField(null=True)
+        local = models.BooleanField(default=True)
+        up = models.BooleanField(default=False)
     ```
+ 
