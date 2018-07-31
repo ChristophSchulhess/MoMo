@@ -41,16 +41,23 @@ Each API call (de-)serializes data to and from the specified model. Currently, t
 
 1. **Payment** is used to hold data regarding one individual transaction. Because the storing of payment data is required for compliance, this model serializer only allows GET (list) and POST methods (no upodating and deleting). Apart from the required *reference_id* and *account_id* field, the model holds the *amount* that has been payed and the *psp* that handles the transaction upstream. Note that SaasInstance and PaymentServiceProvider entries in the core databases are protected by the model's foreign keys and cannot be deleted as long as they are referenced by a payment. 
 
-```python
-class Payment(models.Model):
-    ...
-    reference_id = models.CharField(max_length=50)
-    amount = models.FloatField(default=0)
-    date_received = models.DateTimeField(default=timezone.now)
-    account_id = models.ForeignKey(SaasInstance, on_delete=models.PROTECT)
-    psp = models.ForeignKey(PaymentServiceProvider, on_delete=models.PROTECT)
-```
+    ```python
+    class Payment(models.Model):
+        ...
+        reference_id = models.CharField(max_length=50)
+        amount = models.FloatField(default=0)
+        date_received = models.DateTimeField(default=timezone.now)
+        account_id = models.ForeignKey(SaasInstance, on_delete=models.PROTECT)
+        psp = models.ForeignKey(PaymentServiceProvider, on_delete=models.PROTECT)
+    ```
+2. **SaasInstance** refers to an instance of the product and customer management application and contains a *fullname* and the *url* used for routing.
 
+    ```python
+    class SaasInstance(models.Model):
+    ...
+    fullname = models.CharField(max_length=100)
+    url = models.URLField(default='', unique=True)
+    ```
 ### Routers
 
 Each time a payment data object is received by the core API and saved to its database, a router will redirect it to the destination instance. How this routing takes place depends on the respective router class to be instantiated. Currently two routers are available: **AccountIdRouter** and **ReferenceIdRouter**. However new routers can easily be added by adding subclasses to the *routers.py* file in the core/ directory.
