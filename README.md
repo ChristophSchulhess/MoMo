@@ -122,4 +122,6 @@ The *urls.py* file contains the wiring of API views to the django models. All mo
     http://127.0.0.1:8000/saas_instance/
     http://127.0.0.1:8000/saas_instance/[id]/
     
-When posting or updating, the payload data has to conform to the respective model, mentioned above. The API accepts form data as well as JSON-encoded payloads.
+When posting or updating, the payload data has to conform to the respective model mentioned above. The API accepts form data as well as JSON-encoded payloads.
+
+## Installation
