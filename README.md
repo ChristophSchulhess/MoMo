@@ -54,10 +54,28 @@ Each API call (de-)serializes data to and from the specified model. Currently, t
 
     ```python
     class SaasInstance(models.Model):
-    ...
-    fullname = models.CharField(max_length=100)
-    url = models.URLField(default='', unique=True)
+        ...
+        fullname = models.CharField(max_length=100)
+        url = models.URLField(default='', unique=True)
     ```
+    
+3. **PaymentServiceProvider** simply holds the (unique) fullname for an individual PSP.
+
+    ```python
+    class PaymentServiceProvider(models.Model):
+        fullname = models.CharField(max_length=100, unique=True)
+    ```
+    
+4. **PspAdapter** stores the individual PSPs' adapters, whether they are running on the localhost, the port on which they are listening (if they are push-based) and their current state. Adapters are responsible for updating their state themselves.
+
+    ```python
+    class PspAdapter(models.Model):
+        psp = models.ForeignKey(PaymentServiceProvider, on_delete=models.PROTECT)
+        port = models.IntegerField(null=True)
+        local = models.BooleanField(default=True)
+        up = models.BooleanField(default=False)
+    ```
+    
 ### Routers
 
 Each time a payment data object is received by the core API and saved to its database, a router will redirect it to the destination instance. How this routing takes place depends on the respective router class to be instantiated. Currently two routers are available: **AccountIdRouter** and **ReferenceIdRouter**. However new routers can easily be added by adding subclasses to the *routers.py* file in the core/ directory.
