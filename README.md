@@ -23,10 +23,6 @@ The core behaviour is implemented as a [Django](https://www.djangoproject.com/) 
 
 ## Features
 
-### Model Structure
-
-something about the model structure
-
 ### Core API
 
 The application exposes a single API that accepts payment data in a **standardized format**. Services that integrate with individual payment service providers are written seperately. This has two basic advantages:
@@ -38,6 +34,22 @@ The application exposes a single API that accepts payment data in a **standardiz
 3. By outsourcing the adapters from the core API, we facilitate a clear *separation of concerns*. All the tasks that relate to individual PSPs are done by the adapters, all core tasks by core.
 
 Disadvantages of this approach are the reduced performance of HTTP based API communication compared to a monolitic app. Furthermore the loose coupling between adapters and core may require the implementation of more complex monitoring and/or debugging mechanisms.
+
+### Model Structure
+
+Each API call (de-)serializes data to and from the specified model. Currently, the app includes four models which reflect the requirements shown above:
+
+1. **Payment** is used to hold data regarding one individual transaction. Because the storing of payment data is required for compliance, this model serializer only allows GET (list) and POST methods (no upodating and deleting). Apart from the required *reference_id* and *account_id* field, the model holds the *amount* that has been payed and the *psp* that handles the transaction upstream. Note that SaasInstance and PaymentServiceProvider entries in the core databases are protected by the model's foreign keys and cannot be deleted as long as they are referenced by a payment. 
+
+'''python
+class Payment(models.Model):
+    ...
+    reference_id = models.CharField(max_length=50)
+    amount = models.FloatField(default=0)
+    date_received = models.DateTimeField(default=timezone.now)
+    account_id = models.ForeignKey(SaasInstance, on_delete=models.PROTECT)
+    psp = models.ForeignKey(PaymentServiceProvider, on_delete=models.PROTECT)
+'''
 
 ### Routers
 
