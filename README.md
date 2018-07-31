@@ -1,6 +1,6 @@
 # MoMo 
 
-![pylint: 9.21](https://img.shields.io/badge/pylint-9.21-green.svg)
+A payment processing app for renewable energy management applications.
 
 ## Motivation
 This project was created as a practical Python challenge for a job application.
@@ -23,10 +23,22 @@ The core behaviour is implemented as a [Django](https://www.djangoproject.com/) 
 
 ## Features
 
-The application exposes a single API that accepts payment data in a standardized format. This has two basic advantages:
+### Model Structure
+
+something about the model structure
+
+### Core API
+
+The application exposes a single API that accepts payment data in a **standardized format**. Services that integrate with individual payment service providers are written seperately. This has two basic advantages:
 
 1. There are few constraints on API integrations for specific payment service providers. They can basically be written in any language as long as they register with the core API and update their current status (UP/DOWN).
 
 2. Payment service providers that wish to integrate with the MoMo API can do so by posting their data directly to core, thereby eliminating the need for a specific adapater/API integration.
 
-Disadvantages of this approach are the rediced performance of HTTP based API communication compared to a monolitic app. Furthermore the loose coupling between adapters and core may require the implementation of more complex monitoring and/or debugging mechanisms.
+3. By outsourcing the adapters from the core API, we facilitate a clear *separation of concerns*. All the tasks that relate to individual PSPs are done by the adapters, all core tasks by core.
+
+Disadvantages of this approach are the reduced performance of HTTP based API communication compared to a monolitic app. Furthermore the loose coupling between adapters and core may require the implementation of more complex monitoring and/or debugging mechanisms.
+
+### Routers
+
+Each time a payment data object is received by the core API and saved to its database, a router will redirect it to the destination instance. How this routing takes place depends on the respective router class to be instantiated. Currently two routers are available: **AccountIdRouter** and **ReferenceIdRouter**. However new routers can easily be added by adding subclasses to the *routers.py* file in the core/ directory.
