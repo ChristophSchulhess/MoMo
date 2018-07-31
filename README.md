@@ -142,3 +142,25 @@ When posting or updating, the payload data has to conform to the respective mode
 ```
 
 Now you should be able to run the app on the development server with ```$ python manage.py runserver``` or ```$ python manage.py testserver core/fixtures/core.json``` (uses fixture for testing).
+
+## Usage
+
+### Writing PSP Adapters
+
+An adapter for a specific payment service provider can be written in any language or fashion that suits the developer best. The only requirement is that it registers once at the core app and manages consistency with the stored adapter state. 
+
+- The registration can be done with a simple curl command (assuming the app server runs on localhost and port 8000):
+    ```bash
+    $ curl -d '{"port":PORT_NUMBER, "psp":PSP_ID}' -H "Content-Type: application/json" -X POST http://localhost:8000/psp_adapter/
+    ```
+    You can also use the much more intuitive [httpie](https://httpie.org) utility:
+    ```bash
+    $ http http://localhost:8000/psp_adapter/ port=PORT_NUMBER psp=PSP_ID
+    ```
+
+    To create a new PSP entry use: 
+    ```bash
+    $ http http://localhost:8000/payment_service_provider/ fullname='Gringotts Wizarding Bank'
+    ```
+    and register with the *id* value taken from the HTTP response.
+- The state must be updated whenenver the adapter is going down (planned or unplanned). To achieve this, one could use a *ExecPost* command (when running the service via Systemd), a Bash trap in a wrapper script or any other mechanism you prefer. Simply send a PUT request to http://localhost:8000/psp_adapter/ that contains the key *up* and a boolean value.
