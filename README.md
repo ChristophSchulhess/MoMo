@@ -19,4 +19,4 @@ The focus should lie on the **simplicity** and **extendability** of the design, 
 
 ## Tech Stack
 
-The core behaviour is implemented as a [Django](https://www.djangoproject.com/) app and uses the [Django REST framework](http://www.django-rest-framework.org/).
+The core behaviour is implemented as a [Django](https://www.djangoproject.com/) app and uses the [Django REST framework](http://www.django-rest-framework.org/). It also uses [requests - http for humans](http://docs.python-requests.org/en/master/) for routing.
