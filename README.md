@@ -181,4 +181,5 @@ Most and foremost my brother who provided valuable input and fruitful discussion
 - Add layers of authentication, authorization, integrity checking, etc.
 - Add logging functionality (the idea is to do logging in *views.py* by adding the respective function to the perform_create hook, similar to routing.
 - Build a module to simplify adapter creation.
+- Build a demo scenario, complete with (stub) SaaS Instances and adapters.
 - Modify for deployment (change to other database, run with gunicorn, etc.)
