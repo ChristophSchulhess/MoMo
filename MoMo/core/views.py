@@ -5,8 +5,8 @@ duplication, verbose status codes, etc.).
 Wired views up by connecting path to function APIView.as_view() in urls.py
 '''
 from rest_framework import generics
-from core import hooks
 
+from core.routers import AccountIdRouter
 from core.models import (
     Payment,
     PspAdapter,
@@ -19,7 +19,6 @@ from core.serializers import (
     PspSerializer,
     SaasInstanceSerializer
 )
-#import core.hooks
 
 class PaymentList(generics.ListCreateAPIView):
     '''
@@ -35,8 +34,13 @@ class PaymentList(generics.ListCreateAPIView):
         perform_create() functions provide a hook for custom behaviour (e.g.
         routing the received payment data to the respective SaasInstance)
         '''
-        error_state = hooks.route_by_account(serializer.validated_data)
-        # Do some error handling here, error_state == None means all good
+        AccountIdRouter().route(serializer.validated_data)
+
+        # or
+
+        # error_state = AccountIdRouter().route(serializer.validated_data)
+        # with some error handling here.
+
         serializer.save()
 
 class PspAdapterList(generics.ListCreateAPIView):
