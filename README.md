@@ -155,12 +155,18 @@ An adapter for a specific payment service provider can be written in any languag
     ```
     You can also use the much more intuitive [httpie](https://httpie.org) utility:
     ```bash
-    $ http http://localhost:8000/psp_adapter/ port=PORT_NUMBER psp=PSP_ID
+    $ http--json http://localhost:8000/psp_adapter/ port=PORT_NUMBER psp=PSP_ID
     ```
-
+    *NOTE: form data is also accepted by the API.*
     To create a new PSP entry use: 
     ```bash
     $ http http://localhost:8000/payment_service_provider/ fullname='Gringotts Wizarding Bank'
     ```
     and register with the *id* value taken from the HTTP response.
 - The state must be updated whenenver the adapter is going down (planned or unplanned). To achieve this, one could use a *ExecPost* command (when running the service via Systemd), a Bash trap in a wrapper script or any other mechanism you prefer. Simply send a PUT request to http://localhost:8000/psp_adapter/ that contains the key *up* and a boolean value.
+
+## Test
+
+The project contains to test suites: *test_views.py* uses the REST framework's test client to send all kinds of HTTP request and then checks for the expected outcome, *test_routers.py* test the rounting functionality by mocking a live (or offline) SaaS instance and checking for expected error states (or the absence thereof).
+
+To test the app, change to the project-level directory (right above *core/*) and run ```python manage.py test -v 2 core/```.
