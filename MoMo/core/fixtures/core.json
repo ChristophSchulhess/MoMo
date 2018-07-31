@@ -1,14 +1,14 @@
 [
 {
     "model": "core.paymentserviceprovider",
-    "pk": 3,
+    "pk": 1,
     "fields": {
         "fullname": "Gringotts Wizarding Bank"
     }
 },
 {
     "model": "core.paymentserviceprovider",
-    "pk": 4,
+    "pk": 2,
     "fields": {
         "fullname": "Iron Bank of Bravos"
     }
@@ -17,56 +17,80 @@
     "model": "core.pspadapter",
     "pk": 1,
     "fields": {
-        "psp": 3,
-        "port": 8070,
-        "up": false
+        "psp": 1,
+        "port": 8001,
+        "up": false,
+        "local": true
     }
 },
 {
     "model": "core.pspadapter",
     "pk": 2,
     "fields": {
-        "psp": 4,
-        "port": 7999,
-        "up": false
+        "psp": 2,
+        "port": 8002,
+        "up": false,
+        "local": true
+    }
+},
+{
+    "model": "core.saasinstance",
+    "pk": 1,
+    "fields": {
+        "fullname": "Thomas Edison",
+        "url": "http://httpstat.us/500/"
     }
 },
 {
     "model": "core.saasinstance",
     "pk": 2,
     "fields": {
-        "fullname": "Thomas Edison",
-        "url": "http://127.0.0.1:8042"
-    }
-},
-{
-    "model": "core.saasinstance",
-    "pk": 3,
-    "fields": {
         "fullname": "Nicola Tesla",
-        "url": "http://127.0.0.1:8043"
+        "url": "http://httpstat.us/200/"
     }
 },
 {
     "model": "core.payment",
     "pk": 1,
     "fields": {
-        "reference_id": "someid",
+        "reference_id": "mister_blond",
         "amount": 42.0,
         "date_received": "2018-07-29T21:04:35Z",
-        "account_id": 2,
-        "psp": 3
+        "account_id": 1,
+        "psp": 1
     }
 },
 {
     "model": "core.payment",
     "pk": 2,
     "fields": {
-        "reference_id": "someotherid",
-        "amount": 23.0,
+        "reference_id": "mister_white",
+        "amount": 1.0,
         "date_received": "2018-07-29T21:04:51Z",
-        "account_id": 3,
-        "psp": 4
+        "account_id": 1,
+        "psp": 2
+    }
+},
+{
+    "model": "core.payment",
+    "pk": 3,
+    "fields": {
+        "reference_id": "mister_pink",
+        "amount": 1000000.0,
+        "date_received": "2018-07-29T21:04:51Z",
+        "account_id": 2,
+        "psp": 1
+    }
+},
+{
+    "model": "core.payment",
+    "pk": 4,
+    "fields": {
+        "reference_id": "mister_orange",
+        "amount": 0,
+        "date_received": "2018-07-29T21:04:51Z",
+        "account_id": 2,
+        "psp": 2
     }
 }
 ]
