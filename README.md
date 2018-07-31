@@ -160,6 +160,7 @@ An adapter for a specific payment service provider can be written in any languag
     $ http--json http://localhost:8000/psp_adapter/ port=PORT_NUMBER psp=PSP_ID
     ```
     *NOTE: form data is also accepted by the API.*
+    
     To create a new PSP entry use: 
     ```bash
     $ http http://localhost:8000/payment_service_provider/ fullname='Gringotts Wizarding Bank'
